@@ -1,32 +1,4 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8" />
-
-<style id="webmakerstyle">
-<script>
-document.getElementById("downloadButton").addEventListener("click", function() {
-    // ダウンロード用のデータ
-    var htmlContent = "<html><head><title>タイトル</title></head><body><h1>Hello, World!</h1></body></html>";
-    
-    // Blobオブジェクトを作成
-    var blob = new Blob([htmlContent], { type: "text/html" });
-
-    // ダウンロード用のリンクを作成
-    var link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.download = "html.html";
-
-    // リンクをクリックしてダウンロードを開始し、リンクを削除
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-});
-</script>
-</style>
-</head>
-<body>
-<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -48,6 +20,41 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     </style>
 </head>
 <body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ファイルダウンロード</title>
+</head>
+<body>
+
+<!-- ダウンロードをトリガーするボタン -->
+<button id="downloadButton">ダウンロード</button>
+
+<script>
+document.getElementById("downloadButton").addEventListener("click", function() {
+    // ダウンロード用のファイル名
+    var fileName = "学Tube.html";
+
+    // ファイルをダウンロードするためのURL
+    var fileUrl = "html/YouTubeの動画.html"; // ファイルが存在するパスに置き換えてください
+
+    // リンクを作成してダウンロードを開始
+    var link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+</script>
+
+</body>
+</html>
+
+
     <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください" style="width: 80%; padding: 10px; margin: 20px;">
     <button onclick="embedVideo()" style="padding: 10px;">動画を表示</button>
 
@@ -74,8 +81,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             }
         }
     </script>
-    <br><br>
-   <a href="html/YouTubeの動画.html" >ファイルをダウンロード</a>
 </body>
 </html>
 
