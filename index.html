@@ -27,7 +27,22 @@
         <!-- YouTubeの動画を埋め込む -->
         <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
+    <button id="downloadButton">ファイルをダウンロード</button>
 
+    <script>
+        // ボタンがクリックされた時の処理を追加
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            // ダウンロードするファイルのURLを指定
+            var fileUrl = 'html/YouTubeの動画';
+            // ダウンロード用のリンクを作成
+            var downloadLink = document.createElement('a');
+            downloadLink.href = fileUrl;
+            // ファイル名を指定（任意）
+            downloadLink.download = 'video.mp4';
+            // リンクをクリックしてダウンロードを開始
+            downloadLink.click();
+        });
+    </script>
     <script>
         function getYouTubeVideoId(url) {
             const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -46,9 +61,6 @@
             }
         }
     </script>
-    
-   <button><a href="html/YouTubeの動画.html" >ファイルをダウンロード</a></button>
-   <button <a href="html/YouTubeの動画.html" >ファイルをダウンロード></a></button>
 </body>
 </html>
 
