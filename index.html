@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <button id="downloadButton">ダウンロードリンク</button>
+<meta charset="UTF-8" />
 
+<style id="webmakerstyle">
 <script>
 document.getElementById("downloadButton").addEventListener("click", function() {
     // ダウンロード用のデータ
@@ -24,6 +23,64 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     document.body.removeChild(link);
 });
 </script>
+</style>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学Tube</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください" style="width: 80%; padding: 10px; margin: 20px;">
+    <button onclick="embedVideo()" style="padding: 10px;">動画を表示</button>
 
+    <div id="videoContainer" style="width: 100%; height: 80vh; margin-top: 20px;">
+        <!-- YouTubeの動画を埋め込む -->
+        <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        function getYouTubeVideoId(url) {
+            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[7].length == 11) ? match[7] : false;
+        }
+
+        function embedVideo() {
+            const url = document.getElementById('youtubeUrl').value;
+            const videoId = getYouTubeVideoId(url);
+            if (videoId) {
+                const iframe = document.getElementById('youtubeIframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
+            } else {
+                alert('有効なYouTubeリンクを入力してください。');
+            }
+        }
+    </script>
+    <br><br>
+   <a href="html/YouTubeの動画.html" >ファイルをダウンロード</a>
+</body>
+</html>
+
+
+<script src="filesystem:https://webmaker.app/temporary/script.js">
+</script>
 </body>
 </html>
