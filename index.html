@@ -27,21 +27,19 @@
 
 <script>
 document.getElementById("downloadButton").addEventListener("click", function() {
-    // ダウンロード用のファイル名
-    var fileName = "学Tube.html";
+    // GitHub上のファイルのURL
+    var fileUrl = "https://raw.githubusercontent.com/fynk7777/GakuTube/main/html.html";
 
-    // ファイルをダウンロードするためのURL
-    var fileUrl = "html.html"; // ファイルが存在するパスに置き換えてください
-
-    // リンクを作成してダウンロードを開始
+    // ダウンロード用のリンクを作成
     var link = document.createElement("a");
     link.href = fileUrl;
-    link.download = fileName;
+    link.download = "html.html"; // ファイル名を設定
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 });
 </script>
+
 <br>
 
     <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください" style="width: 80%; padding: 10px; margin: 20px;">
