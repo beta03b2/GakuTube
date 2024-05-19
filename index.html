@@ -50,7 +50,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
- <style>
+  <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -98,7 +98,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
         function getYouTubeVideoId(url) {
             const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
             const match = url.match(regExp);
-            return (match && match[7].length == 11) ? match[7] : false;
+            return (match && match[7].length === 11) ? match[7] : false;
         }
 
         function embedVideo() {
@@ -106,11 +106,28 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const videoId = getYouTubeVideoId(url);
             if (videoId) {
                 const iframe = document.getElementById('youtubeIframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be
+
+?autoplay=1`;
             } else {
                 alert('有効なYouTubeリンクを入力してください。');
             }
         }
+
+        // 全画面の変更を監視する関数
+        function onFullScreenChange() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // 全画面の変更イベントリスナーを追加
+        document.addEventListener('fullscreenchange', onFullScreenChange);
+        document.addEventListener('webkitfullscreenchange', onFullScreenChange);
+        document.addEventListener('mozfullscreenchange', onFullScreenChange);
+        document.addEventListener('MSFullscreenChange', onFullScreenChange);
     </script>
 </body>
 </html>
