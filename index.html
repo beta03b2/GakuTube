@@ -50,7 +50,13 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
-  <style>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video</title>
+    <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -107,26 +113,11 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const videoId = getYouTubeVideoId(url);
             if (videoId) {
                 const iframe = document.getElementById('youtubeIframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
             } else {
                 alert('有効なYouTubeリンクを入力してください。');
             }
         }
-
-        // 全画面の変更を監視する関数
-        function onFullScreenChange() {
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'hidden'; // 全画面から抜けてもスクロールは無効
-            }
-        }
-
-        // 全画面の変更イベントリスナーを追加
-        document.addEventListener('fullscreenchange', onFullScreenChange);
-        document.addEventListener('webkitfullscreenchange', onFullScreenChange);
-        document.addEventListener('mozfullscreenchange', onFullScreenChange);
-        document.addEventListener('MSFullscreenChange', onFullScreenChange);
 
         // "その他の動画"のクリックイベントを監視
         document.addEventListener('click', function(event) {
@@ -137,6 +128,38 @@ document.getElementById("downloadButton").addEventListener("click", function() {
                 youtubeUrlInput.value = target.href;
             }
         });
+
+        // 全画面表示のトリガーを設定
+        function toggleFullScreen() {
+            const iframe = document.getElementById('youtubeIframe');
+            if (!document.fullscreenElement &&    // フルスクリーンモードでない場合
+                !document.mozFullScreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.msFullscreenElement ) {  // フルスクリーンモードでない場合
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                } else if (iframe.mozRequestFullScreen) {
+                    iframe.mozRequestFullScreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
     </script>
+</body>
+</html>
+
 </body>
 </html>
