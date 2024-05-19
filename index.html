@@ -5,20 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="Google.png" type="image/png">
     <title>Google</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
 </head>
 <body>
 
@@ -64,10 +50,47 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
-    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください" style="width: 80%; padding: 10px; margin: 20px;">
-    <button onclick="embedVideo()" style="padding: 10px;">動画を表示</button>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #youtubeUrl {
+            width: 80%;
+            padding: 10px;
+            margin: 20px;
+        }
+        button {
+            padding: 10px;
+        }
+        #videoContainer {
+            position: relative;
+            width: 100%;
+            max-width: 1280px; /* Maximum width for better responsiveness */
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+            margin-top: 20px;
+        }
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください">
+    <button onclick="embedVideo()">動画を表示</button>
 
-    <div id="videoContainer" style="width: 100%; height: 80vh; margin-top: 20px;">
+    <div id="videoContainer">
         <!-- YouTubeの動画を埋め込む -->
         <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -90,11 +113,5 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             }
         }
     </script>
-</body>
-</html>
-
-
-<script src="filesystem:https://webmaker.app/temporary/script.js">
-</script>
 </body>
 </html>
