@@ -50,7 +50,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
- <style>
+    <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -91,12 +91,10 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 
     <div id="videoContainer">
         <!-- YouTubeの動画を埋め込む -->
-        <div id="player"></div>
+        <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script>
-        let player;
-
         function getYouTubeVideoId(url) {
             const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
             const match = url.match(regExp);
@@ -107,26 +105,12 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const url = document.getElementById('youtubeUrl').value;
             const videoId = getYouTubeVideoId(url);
             if (videoId) {
+                const iframe = document.getElementById('youtubeIframe');
                 iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
-            } else {
-                player.loadVideoById(videoId);
             } else {
                 alert('有効なYouTubeリンクを入力してください。');
             }
         }
-
-        // YouTubeリンクがクリックされたときに実行する関数
-        function onYouTubeLinkClicked(event) {
-            const clickedElement = event.target;
-            if (clickedElement.tagName === 'A' && clickedElement.href.includes('youtube.com')) {
-                event.preventDefault(); // ページ遷移を防止
-                const youtubeUrlInput = document.getElementById('youtubeUrl');
-                youtubeUrlInput.value = clickedElement.href;
-            }
-        }
-
-        // ページ上のYouTubeリンクのクリックを監視するイベントリスナーを追加
-        document.addEventListener('click', onYouTubeLinkClicked);
     </script>
 </body>
 </html>
