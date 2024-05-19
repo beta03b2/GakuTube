@@ -50,13 +50,13 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
-    <style>
+  <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* スクロールを有効にする */
+            overflow: hidden; /* スクロールを無効にする */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -70,10 +70,11 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             padding: 10px;
         }
         #videoContainer {
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9アスペクト比を維持 */
             position: relative;
+            width: 100%;
+            max-width: 1280px; /* Maximum width for better responsiveness */
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+            margin-top: 20px;
         }
         iframe {
             position: absolute;
@@ -111,6 +112,31 @@ document.getElementById("downloadButton").addEventListener("click", function() {
                 alert('有効なYouTubeリンクを入力してください。');
             }
         }
+
+        // 全画面の変更を監視する関数
+        function onFullScreenChange() {
+            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'hidden'; // 全画面から抜けてもスクロールは無効
+            }
+        }
+
+        // 全画面の変更イベントリスナーを追加
+        document.addEventListener('fullscreenchange', onFullScreenChange);
+        document.addEventListener('webkitfullscreenchange', onFullScreenChange);
+        document.addEventListener('mozfullscreenchange', onFullScreenChange);
+        document.addEventListener('MSFullscreenChange', onFullScreenChange);
+
+        // "その他の動画"のクリックイベントを監視
+        document.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'A' && target.href.includes('youtube.com/watch')) {
+                event.preventDefault(); // ページ遷移を防止
+                const youtubeUrlInput = document.getElementById('youtubeUrl');
+                youtubeUrlInput.value = target.href;
+            }
+        });
     </script>
 </body>
 </html>
