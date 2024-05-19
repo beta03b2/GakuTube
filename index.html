@@ -107,6 +107,8 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const url = document.getElementById('youtubeUrl').value;
             const videoId = getYouTubeVideoId(url);
             if (videoId) {
+                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
+            } else {
                 player.loadVideoById(videoId);
             } else {
                 alert('有効なYouTubeリンクを入力してください。');
