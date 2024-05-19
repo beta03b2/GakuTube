@@ -62,7 +62,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* スクロールを無効にする */
+            overflow: auto; /* スクロールを有効にする */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -76,11 +76,10 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             padding: 10px;
         }
         #videoContainer {
-            position: relative;
             width: 100%;
-            max-width: 1280px; /* Maximum width for better responsiveness */
-            padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-            margin-top: 20px;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9アスペクト比を維持 */
+            position: relative;
         }
         iframe {
             position: absolute;
@@ -119,46 +118,18 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             }
         }
 
-        // "その他の動画"のクリックイベントを監視
-        document.addEventListener('click', function(event) {
-            const target = event.target;
-            if (target.tagName === 'A' && target.href.includes('youtube.com/watch')) {
-                event.preventDefault(); // ページ遷移を防止
-                const youtubeUrlInput = document.getElementById('youtubeUrl');
-                youtubeUrlInput.value = target.href;
-            }
-        });
-
         // 全画面表示のトリガーを設定
         function toggleFullScreen() {
             const iframe = document.getElementById('youtubeIframe');
-            if (!document.fullscreenElement &&    // フルスクリーンモードでない場合
-                !document.mozFullScreenElement && 
-                !document.webkitFullscreenElement && 
-                !document.msFullscreenElement ) {  // フルスクリーンモードでない場合
-                if (iframe.requestFullscreen) {
-                    iframe.requestFullscreen();
-                } else if (iframe.msRequestFullscreen) {
-                    iframe.msRequestFullscreen();
-                } else if (iframe.mozRequestFullScreen) {
-                    iframe.mozRequestFullScreen();
-                } else if (iframe.webkitRequestFullscreen) {
-                    iframe.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-                document.body.style.overflow = 'hidden'; // スクロールを無効にする
+            if (!document.fullscreenElement) {
+                iframe.requestFullscreen();
             } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
-                document.body.style.overflow = ''; // スクロールを有効にする
+                document.exitFullscreen();
             }
         }
+
+        // 全画面表示/終了ボタンのクリックイベントを設定
+        document.getElementById('videoContainer').addEventListener('click', toggleFullScreen);
     </script>
 </body>
 </html>
