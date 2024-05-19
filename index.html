@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video</title>
-
+    <link rel="icon" href="Google.png" type="image/png">
+    <title>Google</title>
     <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+ <style>
         #downloadButton {
             padding: 20px 40px; /* ボタンの内側の余白を大きくする */
             font-size: 20px; /* フォントサイズを大きくする */
@@ -17,7 +34,6 @@
             background-color: #0056b3; /* ホバー時の背景色を変更 */
         }
     </style>
-
 <!-- ダウンロードをトリガーするボタン -->
 <button id="downloadButton">ダウンロード</button>
 
@@ -29,56 +45,19 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     // ダウンロード用のリンクを作成
     var link = document.createElement("a");
     link.href = fileUrl;
-    link.setAttribute('download', 'GakuTube.html'); // ファイル名を設定
+    link.download = "html.html"; // ファイル名を設定
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 });
 </script>
 
+<br>
 
-    
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        #youtubeUrl {
-            width: 80%;
-            padding: 10px;
-            margin: 20px;
-        }
-        button {
-            padding: 10px;
-        }
-        #videoContainer {
-            position: relative;
-            width: 100%;
-            max-width: 1280px; /* Maximum width for better responsiveness */
-            padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-            margin-top: 20px;
-        }
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
-</head>
-<body>
-    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください">
-    <button onclick="embedVideo()">動画を表示</button>
+    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください" style="width: 80%; padding: 10px; margin: 20px;">
+    <button onclick="embedVideo()" style="padding: 10px;">動画を表示</button>
 
-    <div id="videoContainer">
+    <div id="videoContainer" style="width: 100%; height: 80vh; margin-top: 20px;">
         <!-- YouTubeの動画を埋め込む -->
         <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -101,5 +80,11 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             }
         }
     </script>
+</body>
+</html>
+
+
+<script src="filesystem:https://webmaker.app/temporary/script.js">
+</script>
 </body>
 </html>
