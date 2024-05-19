@@ -145,6 +145,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
                 } else if (iframe.webkitRequestFullscreen) {
                     iframe.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
                 }
+                document.body.style.overflow = 'hidden'; // スクロールを無効にする
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
@@ -155,11 +156,9 @@ document.getElementById("downloadButton").addEventListener("click", function() {
                 } else if (document.webkitExitFullscreen) {
                     document.webkitExitFullscreen();
                 }
+                document.body.style.overflow = ''; // スクロールを有効にする
             }
         }
     </script>
-</body>
-</html>
-
 </body>
 </html>
