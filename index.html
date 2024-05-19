@@ -50,7 +50,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
-  <style>
+ <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -91,10 +91,12 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 
     <div id="videoContainer">
         <!-- YouTubeの動画を埋め込む -->
-        <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
+        <div id="player"></div>
     </div>
 
     <script>
+        let player;
+
         function getYouTubeVideoId(url) {
             const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
             const match = url.match(regExp);
@@ -105,29 +107,24 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const url = document.getElementById('youtubeUrl').value;
             const videoId = getYouTubeVideoId(url);
             if (videoId) {
-                const iframe = document.getElementById('youtubeIframe');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be
-
-?autoplay=1`;
+                player.loadVideoById(videoId);
             } else {
                 alert('有効なYouTubeリンクを入力してください。');
             }
         }
 
-        // 全画面の変更を監視する関数
-        function onFullScreenChange() {
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
+        // YouTubeリンクがクリックされたときに実行する関数
+        function onYouTubeLinkClicked(event) {
+            const clickedElement = event.target;
+            if (clickedElement.tagName === 'A' && clickedElement.href.includes('youtube.com')) {
+                event.preventDefault(); // ページ遷移を防止
+                const youtubeUrlInput = document.getElementById('youtubeUrl');
+                youtubeUrlInput.value = clickedElement.href;
             }
         }
 
-        // 全画面の変更イベントリスナーを追加
-        document.addEventListener('fullscreenchange', onFullScreenChange);
-        document.addEventListener('webkitfullscreenchange', onFullScreenChange);
-        document.addEventListener('mozfullscreenchange', onFullScreenChange);
-        document.addEventListener('MSFullscreenChange', onFullScreenChange);
+        // ページ上のYouTubeリンクのクリックを監視するイベントリスナーを追加
+        document.addEventListener('click', onYouTubeLinkClicked);
     </script>
 </body>
 </html>
