@@ -22,7 +22,18 @@
 </head>
 <body>
 
+ <style>
+        #downloadButton {
+            padding: 20px 40px; /* ボタンの内側の余白を大きくする */
+            font-size: 20px; /* フォントサイズを大きくする */
+            cursor: pointer; /* カーソルをポインタにする */
+            border-radius: 5px; /* ボタンの角を丸くする */
+        }
 
+        #downloadButton:hover {
+            background-color: #0056b3; /* ホバー時の背景色を変更 */
+        }
+    </style>
 <!-- ダウンロードをトリガーするボタン -->
 <button id="downloadButton">ダウンロード</button>
 
@@ -31,15 +42,18 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     // GitHub上のファイルのURL
     var fileUrl = "https://raw.githubusercontent.com/fynk7777/GakuTube/main/html.html";
 
-    // ダウンロード用のリンクを作成
-    var link = document.createElement("a");
-    link.href = fileUrl;
-    link.download = "html.html"; // ファイル名を設定
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-});
-</script>
+    fetch(fileUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            // ダウンロード用のリンクを作成
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "html.html"; // ファイル名を設定
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        })
+        .catch(error => console.error('Error:', error));
 
 <br>
 
