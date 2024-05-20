@@ -72,21 +72,23 @@ document.getElementById("downloadButton").addEventListener("click", function() {
         #videoContainer {
             width: 100%;
             max-width: 640px; /* Maximum width */
-            height: auto; /* Adjust height automatically */
-            overflow-y: hidden; /* Hide overflow */
+            overflow: hidden; /* Hide overflow */
             margin-top: 20px;
             position: relative; /* For maintaining aspect ratio */
         }
+        .aspect-ratio-16-9 {
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+        .aspect-ratio-9-16 {
+            padding-top: 177.78%; /* 9:16 aspect ratio */
+        }
         #videoIframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: 0;
-        }
-        .aspect-ratio-16-9 {
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        }
-        .aspect-ratio-9-16 {
-            padding-bottom: 177.78%; /* 9:16 aspect ratio */
         }
         #developerModeLabel {
             display: none; /* Hide by default */
@@ -159,7 +161,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             let videoId = getYouTubeVideoId(url);
             if (videoId) {
                 videoContainer.className = 'aspect-ratio-16-9';
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
                 return;
             }
 
