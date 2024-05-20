@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <style>
+<style>
         body, html {
             margin: 0;
             padding: 0;
@@ -39,6 +39,14 @@
             height: 100%;
             border: 0;
         }
+        #developerModeLabel {
+            display: none; /* Hide by default */
+            color: red;
+            margin-top: 10px;
+        }
+        .developer-mode #developerModeLabel {
+            display: block; /* Show in developer mode */
+        }
     </style>
 </head>
 <body>
@@ -47,12 +55,15 @@
         <button onclick="embedVideo()">動画を表示</button>
         <button onclick="pasteFromClipboard()">クリップボードから貼り付け</button>
     </div>
+    <div id="developerModeLabel">開発者モード</div>
     <div id="videoContainer">
         <!-- 動画を埋め込む -->
         <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script>
+        let isDeveloperMode = false;
+
         function getYouTubeVideoId(url) {
             const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
             const match = url.match(regExp);
@@ -81,13 +92,28 @@
             }
         }
 
+        function toggleDeveloperMode() {
+            isDeveloperMode = !isDeveloperMode;
+            document.body.classList.toggle('developer-mode', isDeveloperMode);
+        }
+
         function embedVideo() {
             const url = document.getElementById('videoUrl').value;
-            let videoId = getYouTubeVideoId(url);
             const iframe = document.getElementById('videoIframe');
 
+            if (url.toLowerCase() === 'developer mode') {
+                toggleDeveloperMode();
+                return;
+            }
+
+            let videoId = getYouTubeVideoId(url);
             if (videoId) {
                 iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
+                return;
+            }
+
+            if (!isDeveloperMode) {
+                alert('TikTokおよびニコニコ動画を表示するには、開発者モードを有効にしてください。');
                 return;
             }
 
@@ -103,7 +129,7 @@
                 return;
             }
 
-            alert('有効なYouTube、TikTok、またはニコニコ動画のリンクを入力してください。');
+            alert('有効なYouTubeのリンクを入力してください。');
         }
     </script>
 </body>
