@@ -1,15 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube,tiktok,ニコニコ</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* スクロールを有効にする */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        #youtubeUrl {
+        #videoUrl {
             width: 80%;
             padding: 10px;
             margin: 20px;
@@ -18,10 +24,19 @@
             padding: 10px;
         }
         #videoContainer {
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9アスペクト比を維持 */
             position: relative;
+            width: 100%;
+            max-width: 640px; /* Maximum width */
+            margin-top: 20px;
+        }
+        .video-16-9 {
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .video-9-16 {
+            padding-top: 177.78%; /* 9:16 Aspect Ratio */
+        }
+        .video-niconico {
+            padding-top: 56.25%; /* 16:9 Aspect Ratio (default for NicoNico) */
         }
         iframe {
             position: absolute;
@@ -34,42 +49,61 @@
     </style>
 </head>
 <body>
-    <input type="text" id="youtubeUrl" placeholder="YouTubeのリンクを入力してください">
+    <input type="text" id="videoUrl" placeholder="動画のリンクを入力してください">
     <button onclick="embedVideo()">動画を表示</button>
 
-    <div id="videoContainer">
-        <!-- YouTubeの動画を埋め込む -->
-        <iframe id="youtubeIframe" src="" frameborder="0" allowfullscreen></iframe>
+    <div id="videoContainer" class="video-16-9">
+        <!-- 動画を埋め込む -->
+        <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <script>
         function getYouTubeVideoId(url) {
-            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
             const match = url.match(regExp);
-            return (match && match[7].length === 11) ? match[7] : false;
+            return (match && match[1].length == 11) ? match[1] : false;
+        }
+
+        function getTikTokVideoId(url) {
+            const regExp = /(?:https?:\/\/)?(?:www\.)?tiktok\.com\/(?:@[\w.-]+\/video\/|v\/|embed\/|)([\w.-]+)/;
+            const match = url.match(regExp);
+            return match ? match[1] : false;
+        }
+
+        function getNicoNicoVideoId(url) {
+            const regExp = /(?:https?:\/\/)?(?:www\.)?nicovideo\.jp\/watch\/(sm[0-9]+)/;
+            const match = url.match(regExp);
+            return match ? match[1] : false;
         }
 
         function embedVideo() {
-            const url = document.getElementById('youtubeUrl').value;
-            const videoId = getYouTubeVideoId(url);
+            const url = document.getElementById('videoUrl').value;
+            let videoId = getYouTubeVideoId(url);
+            const iframe = document.getElementById('videoIframe');
+            const videoContainer = document.getElementById('videoContainer');
+
             if (videoId) {
-                const iframe = document.getElementById('youtubeIframe');
                 iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
-            } else {
-                alert('有効なYouTubeリンクを入力してください。');
+                videoContainer.className = 'video-16-9';
+                return;
             }
-        }
 
-        // 全画面表示のトリガーを設定
-        function toggleFullScreen() {
-            const iframe = document.getElementById('youtubeIframe');
-            if (!document.fullscreenElement) {
-                iframe.requestFullscreen();
-            } else {
-                document.exitFullscreen();
+            videoId = getTikTokVideoId(url);
+            if (videoId) {
+                iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
+                videoContainer.className = 'video-9-16';
+                return;
             }
-        }
 
-        // 全画面表示/終了ボタンのクリックイベントを設定
-        document.getElementById('videoContainer').addEventListener('click', toggleFullScreen);
+            videoId = getNicoNicoVideoId(url);
+            if (videoId) {
+                iframe.src = `https://embed.nicovideo.jp/watch/${videoId}`;
+                videoContainer.className = 'video-niconico';
+                return;
+            }
+
+            alert('有効なYouTube、TikTok、またはニコニコ動画のリンクを入力してください。');
+        }
     </script>
+</body>
+</html>
