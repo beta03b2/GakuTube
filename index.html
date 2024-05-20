@@ -77,9 +77,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             position: relative; /* For maintaining aspect ratio */
         }
         .aspect-ratio-16-9 {
-            padding-top:56.25%;
-            height: 405px;
-            width: 720px;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
         }
         .aspect-ratio-9-16 {
             padding-top: 177.78%; /* 9:16 aspect ratio */
@@ -112,7 +110,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     <button onclick="pasteFromClipboard()">クリップボードから貼り付け</button>
 </div>
 <div id="developerModeLabel">開発者モード</div>
-<div id="videoContainer">
+<div id="videoContainer" class="aspect-ratio-16-9">
     <!-- 動画を埋め込む -->
     <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
 </div>
@@ -152,47 +150,47 @@ document.getElementById("downloadButton").addEventListener("click", function() {
         document.body.classList.toggle('developer-mode', isDeveloperMode);
     }
 
-function embedVideo() {
-    const url = document.getElementById('videoUrl').value;
-    const iframe = document.getElementById('videoIframe');
-    const videoContainer = document.getElementById('videoContainer');
+    function embedVideo() {
+        const url = document.getElementById('videoUrl').value;
+        const iframe = document.getElementById('videoIframe');
+        const videoContainer = document.getElementById('videoContainer');
 
-    if (url.toLowerCase() === 'developer mode') {
-        toggleDeveloperMode();
-        return;
-    }
-
-    let videoId = getYouTubeVideoId(url);
-    if (videoId) {
-        videoContainer.className = 'aspect-ratio-16-9';
-        iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
-        return;
-    }
-
-    videoId = getTikTokVideoId(url);
-    if (videoId) {
-        if (!isDeveloperMode) {
-            alert('TikTokおよびニコニコ動画を表示するには、開発者モードを有効にしてください。');
+        if (url.toLowerCase() === 'developer mode') {
+            toggleDeveloperMode();
             return;
         }
-        videoContainer.className = 'aspect-ratio-9-16';
-        iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
-        return;
-    }
 
-    videoId = getNicoNicoVideoId(url);
-    if (videoId) {
-        if (!isDeveloperMode) {
-            alert('TikTokおよびニコニコ動画を表示するには、開発者モードを有効にしてください。');
+        let videoId = getYouTubeVideoId(url);
+        if (videoId) {
+            videoContainer.className = 'aspect-ratio-16-9';
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
             return;
         }
-        videoContainer.className = 'aspect-ratio-16-9';
-        iframe.src = `https://embed.nicovideo.jp/watch/${videoId}`;
-        return;
-    }
 
-    alert(isDeveloperMode ? '有効なYouTube、TikTok、またはニコニコ動画のリンクを入力してください。' : '有効なYouTubeのリンクを入力してください。');
-}
+        videoId = getTikTokVideoId(url);
+        if (videoId) {
+            if (!isDeveloperMode) {
+                alert('TikTokおよびニコニコ動画を表示するには、開発者モードを有効にしてください。');
+                return;
+            }
+            videoContainer.className = 'aspect-ratio-9-16';
+            iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
+            return;
+        }
+
+        videoId = getNicoNicoVideoId(url);
+        if (videoId) {
+            if (!isDeveloperMode) {
+                alert('TikTokおよびニコニコ動画を表示するには、開発者モードを有効にしてください。');
+                return;
+            }
+            videoContainer.className = 'aspect-ratio-16-9';
+            iframe.src = `https://embed.nicovideo.jp/watch/${videoId}`;
+            return;
+        }
+
+        alert(isDeveloperMode ? '有効なYouTube、TikTok、またはニコニコ動画のリンクを入力してください。' : '有効なYouTubeのリンクを入力してください。');
+    }
 </script>
 </body>
 </html>
