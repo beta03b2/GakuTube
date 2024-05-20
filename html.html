@@ -10,7 +10,6 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,28 +21,16 @@
         }
         button {
             padding: 10px;
+            margin: 5px; /* Add margin to separate buttons */
         }
         #videoContainer {
-            position: relative;
             width: 100%;
             max-width: 640px; /* Maximum width */
+            height: 360px; /* Default height */
+            overflow-y: scroll; /* Enable vertical scrolling */
             margin-top: 20px;
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-        .video-16-9 {
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-        }
-        .video-9-16 {
-            height: 640px; /* Fixed height for scrolling */
-            padding-top: 0; /* No padding for fixed height */
-        }
-        .video-niconico {
-            padding-top: 56.25%; /* 16:9 Aspect Ratio (default for NicoNico) */
         }
         iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             border: 0;
@@ -52,9 +39,11 @@
 </head>
 <body>
     <input type="text" id="videoUrl" placeholder="動画のリンクを入力してください">
-    <button onclick="embedVideo()">動画を表示</button>
-
-    <div id="videoContainer" class="video-16-9">
+    <div>
+        <button onclick="embedVideo()">動画を表示</button>
+        <button onclick="pasteFromClipboard()">クリップボードから貼り付け</button>
+    </div>
+    <div id="videoContainer">
         <!-- 動画を埋め込む -->
         <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -78,31 +67,35 @@
             return match ? match[1] : false;
         }
 
+        async function pasteFromClipboard() {
+            const inputField = document.getElementById('videoUrl');
+            try {
+                const clipboardText = await navigator.clipboard.readText();
+                inputField.value = clipboardText; // Paste the clipboard text into the input field
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+            }
+        }
+
         function embedVideo() {
             const url = document.getElementById('videoUrl').value;
             let videoId = getYouTubeVideoId(url);
             const iframe = document.getElementById('videoIframe');
-            const videoContainer = document.getElementById('videoContainer');
 
             if (videoId) {
-                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be
-
-?autoplay=1`;
-                videoContainer.className = 'video-16-9';
+                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
                 return;
             }
 
             videoId = getTikTokVideoId(url);
             if (videoId) {
                 iframe.src = `https://www.tiktok.com/embed/v2/${videoId}`;
-                videoContainer.className = 'video-9-16';
                 return;
             }
 
             videoId = getNicoNicoVideoId(url);
             if (videoId) {
                 iframe.src = `https://embed.nicovideo.jp/watch/${videoId}`;
-                videoContainer.className = 'video-niconico';
                 return;
             }
 
