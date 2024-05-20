@@ -50,12 +50,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </script>
 <br>
 
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>動画再生</title>
     <style>
         body, html {
             margin: 0;
@@ -80,12 +74,14 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             width: 100%;
             max-width: 640px; /* Maximum width */
             margin-top: 20px;
+            overflow-y: auto; /* Enable vertical scrolling */
         }
         .video-16-9 {
             padding-top: 56.25%; /* 16:9 Aspect Ratio */
         }
         .video-9-16 {
-            padding-top: 177.78%; /* 9:16 Aspect Ratio */
+            height: 640px; /* Fixed height for scrolling */
+            padding-top: 0; /* No padding for fixed height */
         }
         .video-niconico {
             padding-top: 56.25%; /* 16:9 Aspect Ratio (default for NicoNico) */
@@ -99,7 +95,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             border: 0;
         }
     </style>
-</head>
 <body>
     <input type="text" id="videoUrl" placeholder="動画のリンクを入力してください">
     <button onclick="embedVideo()">動画を表示</button>
@@ -135,7 +130,7 @@ document.getElementById("downloadButton").addEventListener("click", function() {
             const videoContainer = document.getElementById('videoContainer');
 
             if (videoId) {
-                iframe.src = `https://www.youtube.com/embed/${videoId}?https /ss.youtube.com/watch feature=youtube.be?autoplay=1`;
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 videoContainer.className = 'video-16-9';
                 return;
             }
@@ -160,6 +155,3 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 </body>
 </html>
 
-    </script>
-</body>
-</html>
