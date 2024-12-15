@@ -102,14 +102,6 @@ document.getElementById("downloadButton").addEventListener("click", function() {
         .developer-mode #developerModeLabel {
             display: block; /* Show in developer mode */
         }  
-        .img{
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-         }
-        .qr{
-            height: 0.5rem;
-        }
     </style>
 </head>
 <body>
@@ -117,14 +109,12 @@ document.getElementById("downloadButton").addEventListener("click", function() {
 <div>
     <button onclick="embedVideo()">動画を表示</button>
     <button onclick="pasteFromClipboard()">クリップボードから貼り付け</button>
+    <a herf="qrcode"><button>QRコードを表示</button></a>
 </div>
 <div id="developerModeLabel">開発者モード</div>
 <div id="videoContainer" class="aspect-ratio-16-9">
     <!-- 動画を埋め込む -->
     <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
-</div>
-<div class="img">
-    <img src="QRcode.png" alt="QRcode" class="qr">
 </div>
 <script>
     let isDeveloperMode = false;
