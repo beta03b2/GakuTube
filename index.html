@@ -19,10 +19,14 @@
         #downloadButton:hover {
             background-color: #0056b3; /* ホバー時の背景色を変更 */
         }
+     img.{
+        position: relative;
+     }
      qr.{
          position: absolute;
-        right: 0;
-        bottom: 0;
+         right: 0;
+         bottom: 0;
+         height: 50px;
      }
     </style>
 <!-- ダウンロードをトリガーするボタン -->
@@ -120,7 +124,9 @@ document.getElementById("downloadButton").addEventListener("click", function() {
     <!-- 動画を埋め込む -->
     <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
 </div>
+<div class="img">
     <img src="QRcode.png" alt="QRcode" class="qr">
+</div>
 <script>
     let isDeveloperMode = false;
 
