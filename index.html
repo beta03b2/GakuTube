@@ -19,15 +19,6 @@
         #downloadButton:hover {
             background-color: #0056b3; /* ホバー時の背景色を変更 */
         }
-     .img{
-        position: relative;
-     }
-     .qr{
-         position: absolute;
-         right: 0;
-         bottom: 0;
-         height: 50px;
-     }
     </style>
 <!-- ダウンロードをトリガーするボタン -->
 <button id="downloadButton">htmlファイルをダウンロード</button>
@@ -110,7 +101,16 @@ document.getElementById("downloadButton").addEventListener("click", function() {
         }
         .developer-mode #developerModeLabel {
             display: block; /* Show in developer mode */
-        }
+        }  
+        .img{
+            position: relative;
+         }
+         .qr{
+             position: absolute;
+             right: 0;
+             bottom: 0;
+             height: 50px;
+         }
     </style>
 </head>
 <body>
