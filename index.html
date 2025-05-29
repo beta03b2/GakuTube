@@ -119,12 +119,15 @@
             addEventListener('load', () => {
                 if (link !== '') {
                     inputField.value = link
-                    embedVideo()
+                    embedVideo(true)
                 }
             })
             function share() {
                 const url = window.location.href
-                const sharelink = `${url.substring(0, url.indexOf("#"))}#${shareurl}`
+                if (url.includes('#')) {
+
+                }
+                const sharelink = url.includes('#') ? `${url.substring(0, url.indexOf("#"))}#${shareurl}` : `${url}#${shareurl}`;
                 navigator.clipboard.writeText(sharelink).then(() => {
                     alert('共有リンクをコピーしました！！')
                 })
@@ -162,7 +165,7 @@
                 document.body.classList.toggle('developer-mode', isDeveloperMode);
             }
 
-            function embedVideo() {
+            function embedVideo(shareling) {
                 const url = document.getElementById('videoUrl').value;
                 shareurl = url
                 const iframe = document.getElementById('videoIframe');
@@ -193,9 +196,14 @@
 
                 videoId = getNicoNicoVideoId(url);
                 if (videoId) {
+
                     if (!isDeveloperMode) {
-                        alert('ニコニコ動画を表示するには、開発者モードを有効にしてください。');
-                        return;
+                        if (shareling) {
+                            toggleDeveloperMode()
+                        } else {
+                            alert('ニコニコ動画を表示するには、開発者モードを有効にしてください。');
+                            return;
+                        }
                     }
                     videoContainer.className = 'aspect-ratio-16-9';
                     tablink.href = `${inputField.value}${app}`
