@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GakuTube使い方</title>
+    <link rel="shortcut icon" href="images/Set.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // 親ページからテーマ情報を受信
+        window.addEventListener('message', (event) => {
+            if (event.data === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>クレジット</h1>
+
+    <p>Made by fynk7777</p>
+
+    <p>GitHub: <a href="https://github.com/fynk7777/GakuTube" target="GitHub">https://github.com/fynk7777/GakuTube</a>
+    </p>
+
+    <p>これは、学校のパソコンでYouTubeを見れるようにしたものです。</p>
+    <p style="font-weight: bold;">一部、見れない動画などがあったりしますが、ご了承ください。</p>
+
+    <hr>
+
+    <h2>使い方</h2>
+    <h3>準備</h3>
+    <h4>全体像</h4>
+    <p>以下は全体の画面の画像です</p>
+    <img src="images/explanation.png" alt="全体像" border="1">
+
+    <h4>動画URL入力欄</h4>
+    <p>ここに、動画のURLを入力してください。</p>
+    <img src="images/link.png" alt="URLの入力欄" border="1">
+
+    <h4>動画を表示</h4>
+    <p>動画URL入力欄に入力したURLの動画を表示します</p>
+    <p>※YouTube,TikTokにのみ対応しています。</p>
+    <img src="images/view.png" alt="動画の表示" border="1">
+
+    <h4>クリップボードから貼り付け</h4>
+    <p>クリップボードから貼り付けることが出来ます。</p>
+    <p>※初めて使用する場合は、サイトから許可を求められる可能性があります。</p>
+    <img src="images/clipboard.png" alt="クリップボードから貼り付け" border="1">
+
+    <h4>共有リンクをコピー</h4>
+    <p>現在表示している動画を共有するリンクをコピーすることが出来ます</p>
+    <img src="images/share.png" alt="共有するリンクをコピー" border="1">
+
+    <h4>バージョン情報</h4>
+    <p>現在のページを表示することが出来ます。</p>
+    <img src="images/version.png" alt="バージョン情報" border="1">
+
+    <h4>QRコードを表示</h4>
+    <p>GakuTubeのQRコードを表示することが出来ます。</p>
+    <p>これを利用して、他の人にもこのサイトを共有することが出来ます</p>
+    <img src="images/qrcodelink.png" alt="QRコードを表示" border="1">
+    <img src="images/qrcode.png" alt="QRcode" border="1">
+
+    <hr>
+
+    <h2>その他</h2>
+
+    <li><span style="font-weight: bold;">developer mode</span>『developer
+        mode』と入力した状態で、「動画を表示」を押すと、開発者モードに変更することが出来ます。<br>これにより、ニコニコ動画を表示することが出来ますが、「ニコニコで表示」を使用しなければ表示できません。</li>
+
+    <hr>
+
+    <h2>機能・バージョン履歴</h2>
+    <div class="ver">
+        <h3>現在のバージョン : 1.1</h3>
+        <label for="ver1">
+            <li id="ver1">1.0 : サイトを公開</li>
+        </label>
+        <p>YouTubeの動画を見れるように作成</p>
+        <label for="ver2">
+            <li id="ver2">1.1 : TikTokに対応</li>
+        </label>
+        <p>TikTokに対応</p>
+        <p>「htmlファイルをダウンロード」を削除</p>
+        <p>「共有」機能を追加</p>
+        <p>公式サイトで表示機能を追加</p>
+    </div>
+</body>
+
+</html>
+<style>
+    code {
+        background: #b5b5b5;
+        border-radius: 5%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .ver p {
+        padding-left: 2rem;
+        margin: 0;
+    }
+</style>
