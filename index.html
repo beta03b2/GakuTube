@@ -113,15 +113,22 @@
 
             const tablink = document.getElementById('url')
             const inputField = document.getElementById('videoUrl');
-            let link = window.location.hash.slice(1)
             const app = '?&url=https%3a%2f%2fsushida.net%2f&hashtags=寿司打'
+            let link = window.location.hash.slice(1)
             let isDeveloperMode = false;
+
+            window.addEventListener('beforeunload', (e) => {
+                e.preventDefault()
+                return
+            })
+
             addEventListener('load', () => {
                 if (link !== '') {
                     inputField.value = link
                     embedVideo(true)
                 }
             })
+
             function share() {
                 const url = window.location.href
                 if (url.includes('#')) {
